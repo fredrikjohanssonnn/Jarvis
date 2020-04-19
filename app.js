@@ -9,6 +9,8 @@ const prefix = '!';
 
 bot.on('message', (message) => {
   let args = message.content.substring(prefix.length).split(' ');
+  const user = message.mentions.users.first();
+  const member = message.guild.member(user);
 
   switch (args[0]) {
     case 'clear':
@@ -18,15 +20,12 @@ bot.on('message', (message) => {
         );
       message.channel.bulkDelete(args[1]);
       break;
+
     case 'kick':
       if (!args[1])
         message.channel.send('Du måste skriva vilken person du vill kicka');
 
-      const user = message.mentions.users.first();
-
       if (user) {
-        const member = message.guild.member(user);
-
         if (member) {
           member
             .kick('Du blev kickad för')
@@ -35,6 +34,29 @@ bot.on('message', (message) => {
             })
             .catch((error) => {
               message.reply('Lyckades inte kicka användaren');
+              console.log(error);
+            });
+        } else {
+          message.reply('Den användaren existerar inte i den här kanalen');
+        }
+      }
+      break;
+    case 'ban':
+      if (!args[1])
+        message.channel.send('Du måste skriva vilken person du vill banna');
+
+      if (user) {
+        if (member) {
+          member
+            .ban({
+              reason:
+                'Du blev bannad pga.. Ja inte vet jag, du var väl otrevlig',
+            })
+            .then(() => {
+              message.reply(`${user.tag} blev bannad`);
+            })
+            .catch((error) => {
+              message.reply('Lyckades inte banna användaren');
               console.log(error);
             });
         } else {
