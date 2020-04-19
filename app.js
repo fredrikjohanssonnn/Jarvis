@@ -67,4 +67,24 @@ bot.on('message', (message) => {
   }
 });
 
+let msg = null;
+const greeting = [
+  'Hola!',
+  'Nämen hallå!',
+  'Mucho gusto!',
+  'Ja hejhej!',
+  'Tjenare!',
+];
+
+bot.on('message', (message) => {
+  if (!message.author.bot) {
+    if (message.content.toLowerCase() == 'hej') {
+      msg = greeting[Math.floor(Math.random() * greeting.length)];
+      message.reply(msg);
+    }
+  } else {
+    return false;
+  }
+});
+
 bot.login(token);
