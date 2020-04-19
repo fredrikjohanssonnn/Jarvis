@@ -1,0 +1,15 @@
+{
+  "name": "jarvis",
+  "version": "1.0.0",
+  "description": "Jarvis intent is to serve and maintain as the guardian of Avengers. It keeps track of all the human's behaviour and is always there when Jarvis is needed.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Fredrik Johansson",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0"
+  }
+}
