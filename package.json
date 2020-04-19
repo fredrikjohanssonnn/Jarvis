@@ -10,11 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^12.2.0",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "node-fetch": "^2.6.0"
   },
-  "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11"
-  }
+  "devDependencies": {}
 }

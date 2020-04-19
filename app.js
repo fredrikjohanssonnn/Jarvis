@@ -1,3 +1,5 @@
+const fetch = require('node-fetch');
+
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 
@@ -84,6 +86,44 @@ bot.on('message', (message) => {
     }
   } else {
     return false;
+  }
+});
+
+const url = 'https://covid19.mathdro.id/api/countries/sweden';
+
+fetch(url)
+  .then((response) => response.json())
+  .then((data) => {
+    const confirmed = data.confirmed.value;
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+bot.on('message', (message) => {
+  if (!message.author.bot) {
+    if (message.content.toLowerCase() == 'corona' || 'covid-19') {
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          const { confirmed, deaths, recovered, lastUpdate } = data;
+
+          const result = `\`
+          Antal drabbade: **${confirmed.value}**
+          Antal avlidna: **${deaths.value}**
+          Antal tillfrisknade: **${recovered.value}**
+          Information uppdaterad: **${new Date(lastUpdate).toDateString()}**
+          `;
+
+          message.channel.send(result);
+        })
+        .catch((error) => {
+          console.log(error);
+          return 'Kolla i konsolen efter error meddelande';
+        });
+    } else {
+      return false;
+    }
   }
 });
 
