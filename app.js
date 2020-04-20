@@ -93,17 +93,21 @@ const url = 'https://covid19.mathdro.id/api/countries/sweden';
 
 bot.on('message', (message) => {
   if (!message.author.bot) {
-    if (message.content.toLowerCase() == 'corona' || 'covid-19') {
+    if (
+      message.content.toLowerCase() == 'corona' ||
+      message.content.toLowerCase() == 'covid-19'
+    ) {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
           const { confirmed, deaths, recovered, lastUpdate } = data;
 
-          const result = `\`
-          Antal drabbade: **${confirmed.value}**
-          Antal avlidna: **${deaths.value}**
-          Antal tillfrisknade: **${recovered.value}**
-          Information uppdaterad: **${new Date(lastUpdate).toDateString()}**
+          const result = `
+          Här är den senaste informationen gällande Corona i Sverige jag kunde hitta:
+Antal drabbade: **${confirmed.value}**
+Antal avlidna: **${deaths.value}**
+Antal tillfrisknade: **${recovered.value}**
+Information uppdaterad: **${new Date(lastUpdate).toDateString()}**
           `;
 
           message.channel.send(result);
